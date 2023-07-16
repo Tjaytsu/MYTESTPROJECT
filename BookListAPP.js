@@ -13,26 +13,29 @@ class Book {
 class UI {
      //static methods 
      static displayBooks(){
-          //DOMI Local storage for test
-          let StoredBooks = [
-               {
-                    title : 'Book One',
-                    author: 'John Doe',
-                    isbn: '130944'
-               },
-               {
-                    title : 'Book Two',
-                    author: 'John Joseph',
-                    isbn: '150944'
-               },
-               {
-                    title : 'Book Three',
-                    author: 'John Constantine',
-                    isbn: '170944'
-               }
-          ];
 
-          let books = StoredBooks;
+          // //DOMI Local storage for test
+          // let StoredBooks = [
+          //      {
+          //           title : 'Book One',
+          //           author: 'John Doe',
+          //           isbn: '130944'
+          //      },
+          //      {
+          //           title : 'Book Two',
+          //           author: 'John Joseph',
+          //           isbn: '150944'
+          //      },
+          //      {
+          //           title : 'Book Three',
+          //           author: 'John Constantine',
+          //           isbn: '170944'
+          //      }
+          // ];
+
+          // let books = StoredBooks;
+
+          let books = Store.getBooks(); 
 
           books.forEach((book)=> UI. addBookToList(book));
      }
@@ -80,6 +83,35 @@ class UI {
 }
 
 //Store Class : Handles Storage
+class Store {
+    static getBooks(){
+     let books;
+     if(localStorage.getItem('books')=== null){
+         books = []; 
+     } 
+     else{
+          books = JSON.parse(localStorage.getItem('books'));
+     }
+     return books;
+    }
+    static addBook(book){
+          let books = Store.getBooks();
+
+          books.push(book);
+
+          localStorage.setItem('books', JSON.stringify(books));
+    }
+    static removeBook(isbn){
+          let books = Store.getBooks();
+          books.forEach((book, index)=>{
+               if(book.isbn === isbn){
+                    books.splice(index, 1);
+               }
+          });
+
+          localStorage.setItem('books', JSON.stringify(books));
+    }
+}
 
 //Event : Display Books
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
@@ -106,6 +138,9 @@ let form = document.querySelector('#book-form').addEventListener('submit', (e)=>
      //Add Book to UI
      UI.addBookToList(book);
 
+     //Add Book to Store (Local storage)
+     Store.addBook(book);
+
      // console.log(book);
 
      //show success alert 
@@ -123,12 +158,17 @@ let form = document.querySelector('#book-form').addEventListener('submit', (e)=>
 
 document.querySelector('#book-list').addEventListener('click', (e)=>{
      // console.log(e.target); 
+
+     //Remove book from UI
      UI.deleteBook(e.target);
+
+     //Remove book from Store(local Storage)
+     Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
+
 
      //show delete alert 
       UI.showAlert('Book removed', 'info');
       
-       
 });
 
 
