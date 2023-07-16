@@ -11,6 +11,7 @@ class Book {
 
 //UI Class : Handle UI Tasks
 class UI {
+     //static methods 
      static displayBooks(){
           //DOMI Local storage for test
           let StoredBooks = [
