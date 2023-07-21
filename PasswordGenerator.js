@@ -1,4 +1,11 @@
-//Generator Functions
+let RandomFunc = {
+ lower : getRandomLower,
+ upper : getRandomUpper,
+ number : getRandomNumber,
+ symbol : getRandomSymbol
+}
+
+//Generator Functions(https://net-comber.com/charset.html)
 
 function getRandomLower(){
 return String.fromCharCode(Math.floor(Math.random()*26) + 97) ;
