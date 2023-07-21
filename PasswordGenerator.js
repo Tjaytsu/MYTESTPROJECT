@@ -1,9 +1,21 @@
+//DOM ELEMENTS
+let resultEl = document.querySelector('#result');
+let lengthEl = document.querySelector('#length');
+let uppercaseEl = document.querySelector('#uppercasecase');
+let lowercaseEl = document.querySelector('#lowercase');
+let numbersEl = document.querySelector('#numbers');
+let symbolsEl = document.querySelector('#symbols');
+let generateEl = document.querySelector('#generate');
+let clickboardEl = document.querySelector('#generate');
+
+
+//Object with Each functions
 let RandomFunc = {
  lower : getRandomLower,
  upper : getRandomUpper,
  number : getRandomNumber,
  symbol : getRandomSymbol
-}
+};
 
 //Generator Functions(https://net-comber.com/charset.html)
 
